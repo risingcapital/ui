@@ -8,7 +8,7 @@ const Hero = () => {
             {/* Parallax Background */}
             <div className="absolute inset-0 z-0">
                 <Image
-                    src="/assets/hero-bg.jpg"
+                    src="/assets/hero-bg.png"
                     alt="Financial markets"
                     fill
                     className="object-cover"
@@ -26,21 +26,21 @@ const Hero = () => {
                     className="max-w-3xl"
                 >
                     <motion.h1
-                        className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
+                        className="text-4xl md:text-6xl lg:text-6xl font-bold text-white mb-6 leading-tight"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.2 }}
                     >
-                        Elevate Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Wealth</span> Strategy
+                        Create <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Financial</span> Independence Passively
                     </motion.h1>
 
                     <motion.p
-                        className="text-xl text-white/80 mb-10"
+                        className="text-lg text-white/80 mb-10"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.4 }}
                     >
-                        Access exclusive opportunities with Rising Capital's premium brokerage services.
+                        Create a future for you and your family through passive investing in multifamily real estate
                     </motion.p>
 
                     <motion.div

@@ -47,11 +47,11 @@ const About = () => {
                     >
                         <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
                             <Image
-                                src="/assets/images/about-image.jpg"
-                                alt="About Rising Capital"
+                                src="/assets/aboutimage.png"
+                                alt="About"
                                 width={600}
                                 height={600}
-                                className="w-full h-auto"
+                                className="w-full h-full"
                             />
                             <div className="absolute -bottom-6 -right-6 bg-gradient-to-r from-blue-500 to-purple-600 p-6 rounded-2xl shadow-xl">
                                 <span className="text-white text-4xl">🏆</span>
