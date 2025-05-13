@@ -40,7 +40,11 @@ const Footer = () => {
                     <div className="max-w-xs">
                         <Link href="/" className="flex items-center space-x-2 mb-6">
                             <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                                <span className="text-white font-bold text-xl">RC</span>
+                                <img
+                                    src="/assets/logo.jpg"
+                                    alt="Rising Capital Logo"
+                                    className="w-full h-full object-contain"
+                                />
                             </div>
                             <span className="text-white font-bold text-xl">RISING CAPITAL</span>
                         </Link>

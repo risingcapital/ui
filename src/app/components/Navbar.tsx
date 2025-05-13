@@ -23,9 +23,13 @@ const Navbar = () => {
                         initial={{ rotate: 0 }}
                         whileHover={{ rotate: 360 }}
                         transition={{ duration: 0.6 }}
-                        className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center shadow-lg"
+                        className="w-10 h-10 rounded-lg flex items-center justify-center shadow-lg overflow-hidden"
                     >
-                        <span className="text-white font-bold text-xl">RC</span>
+                        <img
+                            src="/assets/logo.jpg"
+                            alt="Rising Capital Logo"
+                            className="w-full h-full object-contain"
+                        />
                     </motion.div>
                     <motion.span
                         initial={{ opacity: 0, x: -10 }}
