@@ -1,171 +1,152 @@
-'use client';
+'use client'
+import { useState, useRef } from 'react'
+import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { ChevronDown, Download } from 'lucide-react'
 
-import { useState, useRef } from 'react';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
-
-const FAQ = () => {
-    const [activeIndex, setActiveIndex] = useState<number | null>(null);
-    const sectionRef = useRef<HTMLElement>(null);
-    const isInView = useInView(sectionRef, { once: true });
+const FAQSection = () => {
+    const [activeIndex, setActiveIndex] = useState<number | null>(null)
+    const contentRefs = useRef<(HTMLDivElement | null)[]>([])
+    const sectionRef = useRef(null)
+    const isInView = useInView(sectionRef, { margin: "-10%", once: true })
 
     const faqs = [
         {
-            question: "What is the minimum investment required?",
-            answer: "Our premium services are designed for serious investors with a minimum account size of $100,000. However, we have special programs for emerging investors starting at $25,000.",
+            question: "What is your investment philosophy?",
+            answer: "We employ a disciplined, research-driven approach combining quantitative models with fundamental analysis. Our three-pillar framework focuses on capital preservation, asymmetric returns, and liquidity management."
         },
         {
-            question: "How do you ensure the security of my investments?",
-            answer: "Client assets are held with top-tier custodians like Pershing and Fidelity. We use bank-level encryption, multi-factor authentication, and regular third-party security audits to protect your information and assets.",
+            question: "How do you ensure portfolio security?",
+            answer: "We implement institutional-grade safeguards: 1) Assets custodied at Morgan Stanley, 2) Biometric authentication, 3) End-to-end encryption, 4) Daily third-party audits, and 5) $25M cybersecurity insurance policy."
         },
         {
-            question: "Can I access international markets through Rising Capital?",
-            answer: "Yes, we provide access to over 50 global markets with competitive forex rates. Our platform supports trading in multiple currencies with real-time settlement.",
+            question: "What reporting will I receive?",
+            answer: "Clients get: 1) Monthly GIPS-compliant statements, 2) Quarterly performance attribution reports, 3) Annual tax documentation, and 4) 24/7 access to our client portal with real-time analytics."
         },
         {
-            question: "What kind of reporting will I receive?",
-            answer: "You'll get comprehensive monthly statements, quarterly performance reviews, and on-demand reporting through our client portal. Our reports include tax optimization insights and benchmark comparisons.",
+            question: "How do you ensure portfolio security?",
+            answer: "We implement institutional-grade safeguards: 1) Assets custodied at Morgan Stanley, 2) Biometric authentication, 3) End-to-end encryption, 4) Daily third-party audits, and 5) $25M cybersecurity insurance policy."
         },
-    ];
+        {
+            question: "What reporting will I receive?",
+            answer: "Clients get: 1) Monthly GIPS-compliant statements, 2) Quarterly performance attribution reports, 3) Annual tax documentation, and 4) 24/7 access to our client portal with real-time analytics."
+        }
+    ]
 
     const toggleFAQ = (index: number) => {
-        setActiveIndex(activeIndex === index ? null : index);
-    };
-
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.2,
-            },
-        },
-    };
-
-    const itemVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                duration: 0.6,
-                ease: [0.6, -0.05, 0.01, 0.99],
-            },
-        },
-    };
+        setActiveIndex(activeIndex === index ? null : index)
+    }
 
     return (
         <section
-            id="faq"
             ref={sectionRef}
-            className="relative min-h-screen py-24 bg-gradient-to-b from-gray-950 to-gray-900 overflow-hidden"
+            className="relative py-3 bg-white overflow-hidden"
         >
-            {/* Particle Background */}
-            <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.15)_0%,transparent_70%)]"></div>
-                {[...Array(20)].map((_, i) => (
-                    <motion.div
-                        key={i}
-                        className="absolute w-1 h-1 bg-blue-400 rounded-full"
-                        initial={{
-                            x: Math.random() * window.innerWidth,
-                            y: Math.random() * window.innerHeight,
-                        }}
-                        animate={{
-                            y: [0, -1000],
-                            opacity: [0, 1, 0],
-                        }}
-                        transition={{
-                            duration: Math.random() * 10 + 10,
-                            repeat: Infinity,
-                            repeatType: 'loop',
-                            ease: 'linear',
-                        }}
-                    />
-                ))}
-            </div>
-
-            <div className="container mx-auto px-6 relative z-10">
+            <div className="container mx-auto px-6 mt-6 relative z-10">
+                {/* Section header */}
                 <motion.div
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate={isInView ? "visible" : "hidden"}
-                    className="text-center mb-20"
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.6 }}
+                    className="text-center mb-10"
                 >
-                    <motion.h2
-                        variants={itemVariants}
-                        className="text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight"
-                        style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
-                    >
-                        Frequently Asked{' '}
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
-                            Questions
-                        </span>
-                    </motion.h2>
-                    <motion.p
-                        variants={itemVariants}
-                        className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
-                    >
-                        Discover everything you need to know about investing with Rising Capital.
-                    </motion.p>
+                    <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                        Investor Questions
+                    </h2>
+                    <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                        Clear answers for sophisticated investors
+                    </p>
                 </motion.div>
 
-                <motion.div
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate={isInView ? "visible" : "hidden"}
-                    className="max-w-4xl mx-auto"
-                >
+                {/* FAQ items - Fixed version */}
+                <div className="max-w-4xl mx-auto mb-9 space-y-4">
                     {faqs.map((faq, index) => (
                         <motion.div
                             key={index}
-                            variants={itemVariants}
-                            className="mb-6 rounded-2xl border border-gray-800/50 bg-gray-900/30 backdrop-blur-lg shadow-xl hover:shadow-2xl transition-shadow duration-300"
-                            whileHover={{ scale: 1.02 }}
-                            transition={{ type: 'spring', stiffness: 300 }}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : {}}
+                            transition={{ delay: index * 0.1 }}
+                            className="overflow-hidden"
                         >
-                            <button
-                                className="w-full flex justify-between items-center p-6 text-left focus:outline-none group"
-                                onClick={() => toggleFAQ(index)}
-                                aria-expanded={activeIndex === index}
-                                aria-controls={`faq-answer-${index}`}
-                            >
-                                <h3
-                                    className="text-xl md:text-2xl font-semibold text-white pr-4 group-hover:text-blue-300 transition-colors duration-200"
-                                    style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
+                            <div className={`border rounded-xl overflow-hidden ${activeIndex === index ? 'border-blue-200 shadow-sm' : 'border-gray-100'}`}>
+                                <button
+                                    onClick={() => toggleFAQ(index)}
+                                    className="w-full flex justify-between items-center p-6 text-left hover:bg-gray-50 transition-colors"
+                                    aria-expanded={activeIndex === index}
                                 >
-                                    {faq.question}
-                                </h3>
-                                <motion.div
-                                    animate={{ rotate: activeIndex === index ? 180 : 0 }}
-                                    transition={{ duration: 0.3 }}
-                                >
-                                    <ChevronDown className="h-6 w-6 text-gray-400 group-hover:text-blue-300 transition-colors duration-200" />
-                                </motion.div>
-                            </button>
-
-                            <AnimatePresence>
-                                {activeIndex === index && (
+                                    <h3 className={`text-lg font-medium ${activeIndex === index ? 'text-blue-600' : 'text-gray-900'}`}>
+                                        {faq.question}
+                                    </h3>
                                     <motion.div
-                                        initial={{ height: 0, opacity: 0 }}
-                                        animate={{ height: 'auto', opacity: 1 }}
-                                        exit={{ height: 0, opacity: 0 }}
-                                        transition={{ duration: 0.4, ease: [0.6, -0.05, 0.01, 0.99] }}
-                                        className="overflow-hidden"
-                                        id={`faq-answer-${index}`}
+                                        animate={{ rotate: activeIndex === index ? 180 : 0 }}
+                                        className={`ml-4 flex-shrink-0 ${activeIndex === index ? 'text-blue-600' : 'text-gray-400'}`}
                                     >
-                                        <div className="px-6 pb-6">
-                                            <p className="text-gray-300 text-lg leading-relaxed">{faq.answer}</p>
-                                        </div>
+                                        <ChevronDown className="w-5 h-5" />
                                     </motion.div>
-                                )}
-                            </AnimatePresence>
+                                </button>
+
+                                <AnimatePresence>
+                                    {activeIndex === index && (
+                                        <motion.div
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{
+                                                height: 'auto',
+                                                opacity: 1,
+                                                transition: {
+                                                    height: { duration: 0.3, ease: 'easeOut' },
+                                                    opacity: { duration: 0.2, delay: 0.1 }
+                                                }
+                                            }}
+                                            exit={{
+                                                height: 0,
+                                                opacity: 0,
+                                                transition: {
+                                                    height: { duration: 0.2 },
+                                                    opacity: { duration: 0.1 }
+                                                }
+                                            }}
+                                            className="overflow-hidden"
+                                        >
+                                            <div
+                                                ref={el => contentRefs.current[index] = el}
+                                                className="px-6 pb-6 pt-2 text-gray-600"
+                                            >
+                                                {faq.answer}
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
                         </motion.div>
                     ))}
+                </div>
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ delay: 0.3 }}
+                    className="max-w-3xl mx-auto bg-gray-50 rounded-xl p-8 border border-gray-200 mb-9"
+                >
+                    <div className="flex flex-col md:flex-row items-center gap-6">
+                        <div className="flex-1">
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">
+                                Full Investment Details
+                            </h3>
+                            <p className="text-gray-600 mb-4">
+                                Download our comprehensive memorandum with strategy details and performance benchmarks.
+                            </p>
+                        </div>
+                        <motion.button
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="flex items-center px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                        >
+                            <Download className="w-4 h-4 mr-2" />
+                            Download Memorandum
+                        </motion.button>
+                    </div>
                 </motion.div>
             </div>
         </section>
-    );
-};
+    )
+}
 
-export default FAQ;
+export default FAQSection

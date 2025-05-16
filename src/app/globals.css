@@ -15,6 +15,7 @@
   /* Custom scrollbar */
   ::-webkit-scrollbar {
     @apply w-2;
+    display: none;
   }
 
   ::-webkit-scrollbar-track {
@@ -22,7 +23,7 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-gradient-to-b from-blue-500 to-purple-600 rounded-full;
+    @apply bg-gray-100 rounded;
   }
 }
 
