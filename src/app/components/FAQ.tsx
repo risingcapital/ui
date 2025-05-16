@@ -57,7 +57,6 @@ const FAQSection = () => {
                     </p>
                 </motion.div>
 
-                {/* FAQ items - Fixed version */}
                 <div className="max-w-4xl mx-auto mb-9 space-y-4">
                     {faqs.map((faq, index) => (
                         <motion.div
@@ -70,12 +69,12 @@ const FAQSection = () => {
                             <div className={`border rounded-xl overflow-hidden ${activeIndex === index ? 'border-blue-200 shadow-sm' : 'border-gray-100'}`}>
                                 <button
                                     onClick={() => toggleFAQ(index)}
-                                    className="w-full flex justify-between items-center p-6 text-left hover:bg-gray-50 transition-colors"
+                                    className="w-full flex justify-between items-center p-3 text-left hover:bg-gray-50 transition-colors"
                                     aria-expanded={activeIndex === index}
                                 >
-                                    <h3 className={`text-lg font-medium ${activeIndex === index ? 'text-blue-600' : 'text-gray-900'}`}>
+                                    <h2 className={`text-lg font-medium ${activeIndex === index ? 'text-blue-600' : 'text-gray-900'}`}>
                                         {faq.question}
-                                    </h3>
+                                    </h2>
                                     <motion.div
                                         animate={{ rotate: activeIndex === index ? 180 : 0 }}
                                         className={`ml-4 flex-shrink-0 ${activeIndex === index ? 'text-blue-600' : 'text-gray-400'}`}
