@@ -1,19 +1,29 @@
 import Navbar from '@/app/components/Navbar';
 import Hero from '@/app/components/Hero';
 import About from '@/app/components/About';
+import Features from '@/app/components/Features';
+import Testimonials from '@/app/components/Testimonials';
+import Stats from '@/app/components/Stats';
 import FAQ from '@/app/components/FAQ';
+import CTA from '@/app/components/CTA';
 import Footer from '@/app/components/Footer';
-import Features from './components/Features';
+import BlogSection from './components/Blog';
 
 export default function Home() {
   return (
-    <main className="bg-black text-white">
+    <div className="bg-gradient-to-b from-white to-gray-50 text-gray-900">
       <Navbar />
-      <Hero />
-      <About />
-      <Features />
-      <FAQ />
+      <main className="overflow-hidden">
+        <Hero />
+        <About />
+        <Features />
+        <Testimonials />
+        <Stats />
+        <BlogSection />
+        <FAQ />
+        <CTA />
+      </main>
       <Footer />
-    </main>
+    </div>
   );
 }
