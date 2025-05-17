@@ -106,7 +106,9 @@ const FAQSection = () => {
                                             className="overflow-hidden"
                                         >
                                             <div
-                                                ref={el => contentRefs.current[index] = el}
+                                                ref={el => {
+                                                    contentRefs.current[index] = el;
+                                                }}
                                                 className="px-6 pb-6 pt-2 text-gray-600"
                                             >
                                                 {faq.answer}
