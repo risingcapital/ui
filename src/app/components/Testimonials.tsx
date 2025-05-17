@@ -72,7 +72,7 @@ const Testimonials = () => {
                                     </p>
                                 </div>
                             </div>
-                            <p className="text-gray-700 italic">"{testimonial.content}"</p>
+                            <p className="text-gray-700 italic">&quot;{testimonial.content}&quot;</p>
                             <div className="mt-6 flex text-yellow-400">
                                 {[...Array(5)].map((_, i) => (
                                     <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 20 20">
