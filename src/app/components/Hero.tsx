@@ -1,101 +1,135 @@
 'use client'
-import { motion } from 'framer-motion'
-import { ChevronRight } from 'lucide-react'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
+import { ArrowRight } from 'lucide-react'
 
 const Hero = () => {
+    const ref = useRef(null)
+    const { scrollYProgress } = useScroll({
+        target: ref,
+        offset: ['start start', 'end start'],
+    })
+
+    // Scroll-based animations
+    const videoOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.4])
+    const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.1])
+    const textY = useTransform(scrollYProgress, [0, 0.6], [0, -100])
+    const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0])
+    const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.15])
+    const imageOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.5])
+    const ctaY = useTransform(scrollYProgress, [0, 0.6], [0, 50])
+
     return (
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-            {/* Full-bleed background image */}
-            <div className="absolute inset-0 z-0">
-                <Image
-                    src="/assets/hero-bg.png"
-                    alt="Investment analytics"
-                    fill
-                    className="object-cover w-full h-full"
-                    priority
-                    quality={100}
-                />
-                {/* <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 to-indigo-900/20"></div> */}
-                {/* <div className="absolute inset-0 bg-gradient-to-t from-gray-900/10 via-transparent to-gray-900/10"></div> */}
-            </div>
+        <section ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-900">
+            {/* Video Background */}
+            <motion.video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover z-0"
+                style={{ opacity: videoOpacity, scale: videoScale }}
+            >
+                <source src="/assets/hero-bg.mp4" type="video/mp4" />
+            </motion.video>
+            {/* Overlay for contrast */}
+            <motion.div
+                className="absolute inset-0 bg-gradient-to-b from-black/50 via-blue-900/20 to-black/50 z-10"
+                style={{ opacity: videoOpacity }}
+            />
 
-            {/* Decorative light effects */}
-            <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-                <div className="absolute top-20 left-20 w-64 h-64 rounded-full bg-blue-400/10 filter blur-3xl"></div>
-                <div className="absolute bottom-20 right-20 w-64 h-64 rounded-full bg-indigo-400/10 filter blur-3xl"></div>
-            </div>
-
-            {/* Content */}
-            <div className="container mx-auto px-6 relative z-10">
-                <div className="flex flex-col lg:flex-row items-center">
-                    {/* Text content */}
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20 max-w-7xl">
+                <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 py-16 lg:py-24">
+                    {/* Text Content */}
                     <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="lg:w-1/2 mb-12 lg:mb-0"
+                        className="lg:w-1/2 text-center lg:text-left space-y-6"
+                        style={{ y: textY, opacity: textOpacity }}
                     >
                         <motion.h1
-                            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-lg"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.2 }}
+                            initial={{ opacity: 0, x: -80 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
+                            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight"
                         >
-                            Smart Investing for <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500">Modern Investors</span>
+                            <span className="relative inline-block">
+                                Elevate Your Wealth
+                                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-blue-400 to-purple-500 animate-pulse"></span>
+                            </span>
+                            <br />
+                            with <span className="text-blue-600">Rising Capital</span>
                         </motion.h1>
-
                         <motion.p
-                            className="text-xl text-gray-600 mb-10 max-w-lg"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.4 }}
+                            initial={{ opacity: 0, x: -80 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 1, delay: 0.5, ease: 'easeOut' }}
+                            className="text-base sm:text-lg text-gray-100 max-w-md mx-auto lg:mx-0"
                         >
-                            Achieve your financial goals with our data-driven investment strategies and personalized wealth management solutions.
+                            Invest in global luxury properties with AI-driven insights and expert guidance.
                         </motion.p>
-
                         <motion.div
-                            className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.6 }}
+                            initial={{ opacity: 0, y: 40 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1, delay: 0.7, ease: 'easeOut' }}
+                            style={{ y: ctaY }}
                         >
                             <motion.button
-                                whileHover={{ scale: 1.05 }}
+                                whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(59, 130, 246, 0.5)' }}
                                 whileTap={{ scale: 0.95 }}
-                                className="flex items-center gap-4 px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:shadow-lg hover:shadow-blue-500/30 transition-all font-medium text-lg"
+                                className="px-8 py-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium text-base sm:text-lg flex items-center justify-center mx-auto lg:mx-0 shadow-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300"
                             >
-                                Invest With Us <ChevronRight />
-                            </motion.button>
-                            <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="px-8 py-4 rounded-full bg-white/0 text-gray-800 border-2 border-white/20 hover:bg-white/20 backdrop-blur-sm transition-all font-medium text-lg"
-                            >
-                                Learn More
+                                Start Investing <ArrowRight className="ml-2 h-5 w-5" />
                             </motion.button>
                         </motion.div>
                     </motion.div>
+
+                    {/* Featured Property Image */}
+                    {/* <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 1.2, delay: 0.5, ease: 'easeOut' }}
+                        className="lg:w-1/2 flex justify-center"
+                        style={{ scale: imageScale, opacity: imageOpacity }}
+                    >
+                        <div className="relative w-full max-w-[500px] sm:max-w-[600px] h-[300px] sm:h-[400px] rounded-2xl overflow-hidden shadow-xl border border-blue-500/20">
+                            <Image
+                                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop"
+                                alt="Featured Property"
+                                fill
+                                className="object-cover"
+                                priority
+                            />
+                            <motion.div
+                                className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 sm:p-6"
+                                initial={{ y: 80 }}
+                                animate={{ y: 0 }}
+                                transition={{ duration: 1, delay: 0.7 }}
+                            >
+                                <h3 className="text-white text-lg sm:text-xl font-semibold">Dubai Oceanfront Villa</h3>
+                                <p className="text-gray-300 text-sm">$28M Investment, 7.8% Annual ROI</p>
+                            </motion.div>
+                        </div>
+                    </motion.div> */}
                 </div>
             </div>
 
-            {/* Scroll indicator */}
+            {/* Floating Decorative Elements */}
             <motion.div
-                className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10"
+                className="absolute top-8 right-8 w-20 h-20 bg-blue-500/20 rounded-full filter blur-xl z-10"
                 animate={{
-                    y: [0, 15, 0],
-                    opacity: [0.6, 1, 0.6]
+                    scale: [1, 1.2, 1],
+                    opacity: [0.4, 0.7, 0.4],
+                    transition: { duration: 5, repeat: Infinity, ease: 'easeInOut' },
                 }}
-                transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    repeatType: 'loop',
+            />
+            <motion.div
+                className="absolute bottom-8 left-8 w-16 h-16 bg-purple-500/20 rounded-full filter blur-xl z-10"
+                animate={{
+                    scale: [1, 1.3, 1],
+                    opacity: [0.3, 0.6, 0.3],
+                    transition: { duration: 4, repeat: Infinity, ease: 'easeInOut' },
                 }}
-            >
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" className="text-white">
-                    <path d="M7 10L12 15L17 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-            </motion.div>
+            />
         </section>
     )
 }

@@ -1,75 +1,79 @@
 'use client'
-import { motion } from 'framer-motion'
-import { BarChart2, Lock, Globe, TrendingUp, Shield, PieChart } from 'lucide-react'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { ArrowRight } from 'lucide-react'
 
 const Features = () => {
+    const ref = useRef(null)
+    const { scrollYProgress } = useScroll({
+        target: ref,
+        offset: ['start end', 'end start'],
+    })
+
     const features = [
         {
-            icon: <BarChart2 className="w-8 h-8 text-blue-600" />,
-            title: "Advanced Analytics",
-            description: "Real-time market data with institutional-grade tools and insights"
+            title: 'AI-Driven Insights',
+            description: 'Leverage advanced analytics to identify high-yield opportunities.',
+            icon: 'https://images.unsplash.com/photo-1620712943543-bcc9466e7070?q=80&w=100&auto=format&fit=crop',
         },
         {
-            icon: <Lock className="w-8 h-8 text-indigo-600" />,
-            title: "Secure Platform",
-            description: "Bank-level encryption and multi-factor authentication for your security"
+            title: 'Global Portfolio',
+            description: 'Access premium properties across major markets worldwide.',
+            icon: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=100&auto=format&fit=crop',
         },
         {
-            icon: <Globe className="w-8 h-8 text-blue-600" />,
-            title: "Global Markets",
-            description: "Access to international markets with competitive exchange rates"
+            title: 'Expert Guidance',
+            description: 'Work with our seasoned advisors for tailored strategies.',
+            icon: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=100&auto=format&fit=crop',
         },
-        {
-            icon: <TrendingUp className="w-8 h-8 text-indigo-600" />,
-            title: "Growth Focused",
-            description: "Curated portfolio strategies designed for maximum returns"
-        },
-        {
-            icon: <Shield className="w-8 h-8 text-blue-600" />,
-            title: "Risk Management",
-            description: "Sophisticated tools to protect and grow your investments"
-        },
-        {
-            icon: <PieChart className="w-8 h-8 text-indigo-600" />,
-            title: "Diversification",
-            description: "Access to multiple asset classes for balanced portfolios"
-        }
     ]
 
+    const cardRotate = useTransform(scrollYProgress, [0, 0.5], [10, 0])
+    const cardOpacity = useTransform(scrollYProgress, [0, 0.5], [0.5, 1])
+
     return (
-        <section id="features" className="py-20 bg-white">
-            <div className="container mx-auto px-6">
+        <section id="investments" ref={ref} className="relative py-20 bg-gray-800 overflow-hidden">
+            <motion.div
+                className="absolute inset-0 bg-gradient-to-t from-blue-900/30 to-gray-900 z-0"
+                style={{ opacity: useTransform(scrollYProgress, [0, 1], [0.5, 0.2]) }}
+            />
+
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-7xl">
                 <motion.div
-                    initial={{ opacity: 0, y: 50 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    viewport={{ once: true }}
-                    className="text-center mb-16"
+                    transition={{ duration: 0.8 }}
+                    className="text-center mb-12"
                 >
-                    <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                        Powerful <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Features</span>
+                    <h2 className="text-3xl sm:text-4xl font-bold text-white">
+                        Why <span className="text-blue-400">Rising Capital</span>
                     </h2>
-                    <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                        Everything you need to make informed investment decisions
+                    <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto">
+                        Unmatched expertise and technology for wealth creation
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {features.map((feature, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 50 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.3, delay: index * 0.1 }}
-                            viewport={{ once: true }}
-                            whileHover={{ y: -10 }}
-                            className="bg-gradient-to-br from-white to-gray-50 rounded-xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-all"
+                            style={{ rotateY: cardRotate, opacity: cardOpacity }}
+                            whileHover={{ scale: 1.05, boxShadow: '0 0 15px rgba(59, 130, 246, 0.3)' }}
+                            className="bg-gray-900/80 rounded-lg p-6 shadow-md backdrop-blur-sm"
                         >
-                            <div className="w-14 h-14 rounded-lg bg-blue-50 flex items-center justify-center mb-6">
-                                {feature.icon}
-                            </div>
-                            <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
-                            <p className="text-gray-600">{feature.description}</p>
+                            <img
+                                src={feature.icon}
+                                alt={feature.title}
+                                className="w-12 h-12 rounded-full mb-4 object-cover"
+                            />
+                            <h3 className="text-lg sm:text-xl font-semibold text-white mb-2">{feature.title}</h3>
+                            <p className="text-sm sm:text-base text-gray-400">{feature.description}</p>
+                            <a
+                                href="#learn-more"
+                                className="mt-4 inline-flex items-center text-blue-400 hover:text-blue-300"
+                            >
+                                Learn More <ArrowRight className="ml-2 h-4 w-4" />
+                            </a>
                         </motion.div>
                     ))}
                 </div>
