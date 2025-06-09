@@ -1,7 +1,7 @@
 'use client'
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import Image from 'next/image'
+// import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 
 const Hero = () => {
@@ -16,8 +16,8 @@ const Hero = () => {
     const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.1])
     const textY = useTransform(scrollYProgress, [0, 0.6], [0, -100])
     const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0])
-    const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.15])
-    const imageOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.5])
+    // const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.15])
+    // const imageOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.5])
     const ctaY = useTransform(scrollYProgress, [0, 0.6], [0, 50])
 
     return (
