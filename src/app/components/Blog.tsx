@@ -1,97 +1,80 @@
 'use client'
 import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
-import Image from 'next/image'
 
-const BlogSection = () => {
-    const sectionRef = useRef(null)
-    const isInView = useInView(sectionRef, { margin: "-10%", once: true })
+const Blog = () => {
+    const ref = useRef(null)
+    const { scrollYProgress } = useScroll({
+        target: ref,
+        offset: ['start end', 'end start'],
+    })
 
     const articles = [
         {
-            title: "Why Is Real Estate Investing So Ideal?",
-            excerpt: "Chris Rock once famously explained the difference between rich and wealthy: Shaquille O'Neal is rich, the man who signs his checks is wealthy. Real estate remains the most reliable path to true wealth.",
-            image: "/assets/logo.jpg",
-            slug: "why-real-estate-investing"
+            title: 'Future of Real Estate',
+            excerpt: 'How AI is reshaping investments.',
+            image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop',
+            slug: 'future-real-estate',
         },
         {
-            title: "Anatomy of a Multifamily Real Estate Syndication",
-            excerpt: "If you want to buy a midsize apartment building, unless you've got $10 million or more sitting around, you'll need partners. Here's how institutional investors structure these deals.",
-            image: "/assets/logo.jpg",
-            slug: "multifamily-syndication"
+            title: 'Global Market Trends',
+            excerpt: 'Insights into high-yield properties.',
+            image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop',
+            slug: 'market-trends',
         },
         {
-            title: "Why Multifamily Real Estate is an Evergreen Investment",
-            excerpt: "Of all real estate investments - single-family, retail, office - apartments are the most resilient. Here's why institutional capital continues flowing to multifamily even during downturns.",
-            image: "/assets/logo.jpg",
-            slug: "multifamily-evergreen"
-        }
+            title: 'Maximizing ROI',
+            excerpt: 'Strategies for luxury real estate.',
+            image: 'https://images.unsplash.com/photo-1620121692029-d088224ddc74?q=80&w=2070&auto=format&fit=crop',
+            slug: 'maximizing-roi',
+        },
     ]
 
-    return (
-        <section
-            ref={sectionRef}
-            className="relative py-16 bg-gray-50 overflow-hidden"
-        >
-            {/* Decorative elements */}
-            <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-                <div className="absolute top-10 right-0 w-64 h-64 bg-blue-100/20 rounded-full blur-3xl"></div>
-            </div>
+    const cardRotate = useTransform(scrollYProgress, [0, 0.5], [15, 0])
+    const cardOpacity = useTransform(scrollYProgress, [0, 0.5], [0.5, 1])
 
-            <div className="container mx-auto px-6 relative z-10">
-                {/* Section header */}
+    return (
+        <section id="insights" ref={ref} className="relative py-20 bg-gray-800 overflow-hidden">
+            <motion.div
+                className="absolute inset-0 bg-gradient-to-t from-blue-900/30 to-gray-900 z-0"
+                style={{ opacity: useTransform(scrollYProgress, [0, 1], [0.5, 0.2]) }}
+            />
+
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-7xl">
                 <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6 }}
-                    className="text-center mb-20"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="text-center mb-12"
                 >
-                    <span className="inline-block text-blue-600 font-medium tracking-widest text-xs uppercase mb-4">
-                        Investor Insights
-                    </span>
-                    <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                        Strategic Perspectives
+                    <h2 className="text-3xl sm:text-4xl font-bold text-white">
+                        Latest <span className="text-blue-400">Insights</span>
                     </h2>
-                    <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                        Research and analysis from our investment team
-                    </p>
                 </motion.div>
 
-                {/* Blog cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {articles.map((article, index) => (
                         <motion.article
                             key={article.slug}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={isInView ? { opacity: 1, y: 0 } : {}}
-                            transition={{ delay: index * 0.1 }}
-                            className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                            style={{ rotateY: cardRotate, opacity: cardOpacity }}
+                            whileHover={{ scale: 1.05, boxShadow: '0 0 15px rgba(59, 130, 246, 0.3)' }}
+                            className="bg-gray-900/80 rounded-lg overflow-hidden shadow-md backdrop-blur-sm"
                         >
-                            <div className="relative h-60">
-                                <Image
-                                    src={article.image}
-                                    alt={article.title}
-                                    fill
-                                    className="object-cover"
-                                    sizes="(max-width: 768px) 100vw, 33vw"
-                                />
-                            </div>
+                            <img
+                                src={article.image}
+                                alt={article.title}
+                                className="w-full h-48 object-cover"
+                            />
                             <div className="p-6">
-                                <h3 className="text-xl font-bold text-gray-900 mb-3">
-                                    {article.title}
-                                </h3>
-                                <p className="text-gray-600 mb-6">
-                                    {article.excerpt}
-                                </p>
-                                <motion.a
+                                <h3 className="text-lg sm:text-xl font-semibold text-white mb-2">{article.title}</h3>
+                                <p className="text-sm sm:text-base text-gray-400 mb-4">{article.excerpt}</p>
+                                <a
                                     href={`/insights/${article.slug}`}
-                                    className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium"
-                                    whileHover={{ x: 4 }}
+                                    className="text-blue-400 hover:text-blue-300 flex items-center"
                                 >
-                                    Read Article
-                                    <ArrowRight className="w-4 h-4 ml-2" />
-                                </motion.a>
+                                    Read More <ArrowRight className="ml-2 h-4 w-4" />
+                                </a>
                             </div>
                         </motion.article>
                     ))}
@@ -101,4 +84,4 @@ const BlogSection = () => {
     )
 }
 
-export default BlogSection
+export default Blog

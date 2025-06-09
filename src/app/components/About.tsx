@@ -1,113 +1,59 @@
-'use client';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { Globe, BarChart, Users, Shield } from 'lucide-react';
+'use client'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 
 const About = () => {
-    const features = [
-        {
-            icon: <Globe className="w-6 h-6 text-blue-600" />,
-            title: "Global Reach",
-            description: "Access to 50+ international markets with local expertise"
-        },
-        {
-            icon: <BarChart className="w-6 h-6 text-indigo-600" />,
-            title: "Data-Driven",
-            description: "AI-powered analytics for smarter investment decisions"
-        },
-        {
-            icon: <Users className="w-6 h-6 text-blue-600" />,
-            title: "Client-First",
-            description: "Dedicated relationship managers for every investor"
-        },
-        {
-            icon: <Shield className="w-6 h-6 text-indigo-600" />,
-            title: "Secure",
-            description: "Bank-level security and regulatory compliance"
-        }
-    ];
+    const ref = useRef(null)
+    const { scrollYProgress } = useScroll({
+        target: ref,
+        offset: ['start end', 'end start'],
+    })
+
+    const textY = useTransform(scrollYProgress, [0, 0.5], [50, 0])
+    const textOpacity = useTransform(scrollYProgress, [0, 0.5], [0, 1])
+    const imageY = useTransform(scrollYProgress, [0, 0.5], [-50, 0])
+    const imageRotate = useTransform(scrollYProgress, [0, 0.5], [10, 0])
 
     return (
-        <section id="about" className="py-20 bg-gray-50">
-            <div className="container mx-auto px-6">
-                <div className="flex flex-col lg:flex-row items-center gap-12">
-                    {/* Image with floating animation */}
+        <section id="about" ref={ref} className="relative py-20 bg-gray-900 overflow-hidden">
+            <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-blue-900/20 to-cyan-900/20 z-0"
+                style={{ opacity: useTransform(scrollYProgress, [0, 1], [0.5, 0.2]) }}
+            />
+
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-7xl">
+                <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
                     <motion.div
-                        className="w-full lg:w-1/2"
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
-                        viewport={{ once: true }}
+                        className="lg:w-1/2"
+                        style={{ y: imageY, rotateY: imageRotate }}
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ duration: 1 }}
                     >
-                        <div className="relative rounded-2xl overflow-hidden shadow-xl">
-                            <Image
-                                src="/assets/logo.jpg"
-                                alt="Rising Capital team"
-                                width={600}
-                                height={600}
-                                className="w-full h-auto"
-                            />
-                            {/* Floating stats card */}
-                            <motion.div
-                                className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg"
-                                whileHover={{ scale: 1.05 }}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.4 }}
-                                viewport={{ once: true }}
-                            >
-                            </motion.div>
-                        </div>
+                        <img
+                            src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop"
+                            alt="Our Mission"
+                            className="w-full h-[300px] sm:h-[400px] rounded-xl shadow-lg object-cover"
+                        />
                     </motion.div>
-
-                    {/* Content */}
-                    <div className="w-full lg:w-1/2">
-                        <motion.div
-                            initial={{ opacity: 0, y: 50 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8 }}
-                            viewport={{ once: true }}
-                        >
-                            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                                About <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Rising Capital</span>
-                            </h2>
-                            <p className="text-lg text-gray-600 mb-8">
-                                Founded in 2010, Rising Capital has redefined wealth management by combining institutional-grade investment strategies with personalized service for discerning investors.
-                            </p>
-                            <p className="text-lg text-gray-600 mb-10">
-                                Our team of former hedge fund managers, economists, and technologists have built a platform that delivers superior risk-adjusted returns through disciplined, data-driven investing.
-                            </p>
-
-                            {/* Features grid */}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                {features.map((feature, index) => (
-                                    <motion.div
-                                        key={index}
-                                        className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all"
-                                        whileHover={{ y: -5 }}
-                                        initial={{ opacity: 0 }}
-                                        whileInView={{ opacity: 1 }}
-                                        transition={{ delay: index * 0.1 }}
-                                        viewport={{ once: true }}
-                                    >
-                                        <div className="flex items-start">
-                                            <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center mr-4">
-                                                {feature.icon}
-                                            </div>
-                                            <div>
-                                                <h3 className="text-lg font-semibold text-gray-900 mb-1">{feature.title}</h3>
-                                                <p className="text-gray-600">{feature.description}</p>
-                                            </div>
-                                        </div>
-                                    </motion.div>
-                                ))}
-                            </div>
-                        </motion.div>
-                    </div>
+                    <motion.div
+                        className="lg:w-1/2 space-y-4"
+                        style={{ y: textY, opacity: textOpacity }}
+                    >
+                        <h2 className="text-3xl sm:text-4xl font-bold text-white">
+                            Pioneering <span className="text-cyan-400">Real Estate</span> Innovation
+                        </h2>
+                        <p className="text-base sm:text-lg text-gray-300">
+                            Since 2010, Rising Capital has redefined wealth creation with AI-driven real estate strategies.
+                        </p>
+                        <p className="text-base sm:text-lg text-gray-300">
+                            Our global team delivers unparalleled returns through cutting-edge technology and market expertise.
+                        </p>
+                    </motion.div>
                 </div>
             </div>
         </section>
-    );
-};
+    )
+}
 
-export default About;
+export default About

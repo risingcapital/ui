@@ -1,85 +1,114 @@
 'use client'
 import { useState, useRef } from 'react'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { motion, AnimatePresence, useInView, useScroll, useTransform } from 'framer-motion'
 import { ChevronDown, Download } from 'lucide-react'
 
-const FAQSection = () => {
-    const [activeIndex, setActiveIndex] = useState<number | null>(null)
-    const contentRefs = useRef<(HTMLDivElement | null)[]>([])
+const FAQ = () => {
+    const [activeIndex, setActiveIndex] = useState(null)
     const sectionRef = useRef(null)
-    const isInView = useInView(sectionRef, { margin: "-10%", once: true })
+    const isInView = useInView(sectionRef, { margin: '-20%', once: true })
+    const { scrollYProgress } = useScroll({
+        target: sectionRef,
+        offset: ['start end', 'end start'],
+    })
 
     const faqs = [
         {
-            question: "What is your investment philosophy?",
-            answer: "We employ a disciplined, research-driven approach combining quantitative models with fundamental analysis. Our three-pillar framework focuses on capital preservation, asymmetric returns, and liquidity management."
+            question: 'What drives your investment strategy?',
+            answer: 'Our AI-powered, data-driven approach combines predictive analytics with deep market expertise to maximize returns.',
         },
         {
-            question: "How do you ensure portfolio security?",
-            answer: "We implement institutional-grade safeguards: 1) Assets custodied at Morgan Stanley, 2) Biometric authentication, 3) End-to-end encryption, 4) Daily third-party audits, and 5) $25M cybersecurity insurance policy."
+            question: 'How do you secure my investments?',
+            answer: 'We employ quantum-grade encryption, biometric authentication, and continuous audits, backed by a $50M cybersecurity policy.',
         },
         {
-            question: "What reporting will I receive?",
-            answer: "Clients get: 1) Monthly GIPS-compliant statements, 2) Quarterly performance attribution reports, 3) Annual tax documentation, and 4) 24/7 access to our client portal with real-time analytics."
+            question: 'What reporting tools do you offer?',
+            answer: 'Real-time analytics, monthly performance reports, quarterly insights, and a 24/7 investor portal.',
         },
         {
-            question: "How do you ensure portfolio security?",
-            answer: "We implement institutional-grade safeguards: 1) Assets custodied at Morgan Stanley, 2) Biometric authentication, 3) End-to-end encryption, 4) Daily third-party audits, and 5) $25M cybersecurity insurance policy."
+            question: 'Can I invest globally?',
+            answer: 'Yes, access premium real estate opportunities across 50+ global markets with tailored strategies.',
         },
         {
-            question: "What reporting will I receive?",
-            answer: "Clients get: 1) Monthly GIPS-compliant statements, 2) Quarterly performance attribution reports, 3) Annual tax documentation, and 4) 24/7 access to our client portal with real-time analytics."
-        }
+            question: 'What are your fee structures?',
+            answer: 'Transparent, competitive fees detailed in our comprehensive investment memorandum.',
+        },
     ]
 
-    const toggleFAQ = (index: number) => {
+    const faqOpacity = useTransform(scrollYProgress, [0, 0.5], [0.5, 1])
+    const faqY = useTransform(scrollYProgress, [0, 0.5], [50, 0])
+
+    const toggleFAQ = (index) => {
         setActiveIndex(activeIndex === index ? null : index)
     }
 
     return (
-        <section
-            ref={sectionRef}
-            className="relative py-3 bg-white overflow-hidden"
-        >
-            <div className="container mx-auto px-6 mt-6 relative z-10">
-                {/* Section header */}
+        <section ref={sectionRef} className="relative py-20 bg-gray-900 overflow-hidden">
+            <motion.div
+                className="absolute inset-0 bg-gradient-to-b from-blue-900/20 to-gray-900 z-0"
+                style={{ opacity: useTransform(scrollYProgress, [0, 1], [0.5, 0.2]) }}
+            >
+                <svg className="absolute inset-0 w-full h-full opacity-10" fill="none">
+                    <motion.circle
+                        cx="50%"
+                        cy="50%"
+                        r="200"
+                        stroke="url(#grad)"
+                        strokeWidth="2"
+                        animate={{ r: [200, 220, 200] }}
+                        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+                    />
+                    <defs>
+                        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style={{ stopColor: '#06b6d4', stopOpacity: 1 }} />
+                            <stop offset="100%" style={{ stopColor: '#a855f7', stopOpacity: 1 }} />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </motion.div>
+
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-7xl">
                 <motion.div
-                    initial={{ opacity: 0, y: 40 }}
+                    initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6 }}
-                    className="text-center mb-10"
+                    transition={{ duration: 0.8 }}
+                    className="text-center mb-12"
                 >
-                    <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                        Investor Questions
+                    <h2 className="text-3xl sm:text-4xl font-bold text-white">
+                        Clarity for <span className="text-cyan-400">Investors</span>
                     </h2>
-                    <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                        Clear answers for sophisticated investors
+                    <p className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto">
+                        Answers to empower your investment journey
                     </p>
                 </motion.div>
 
-                <div className="max-w-4xl mx-auto mb-9 space-y-4">
+                <div className="max-w-4xl mx-auto mb-12 space-y-4">
                     {faqs.map((faq, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={isInView ? { opacity: 1, y: 0 } : {}}
-                            transition={{ delay: index * 0.1 }}
+                            style={{ opacity: faqOpacity, y: faqY }}
                             className="overflow-hidden"
                         >
-                            <div className={`border rounded-xl overflow-hidden ${activeIndex === index ? 'border-blue-200 shadow-sm' : 'border-gray-100'}`}>
+                            <div
+                                className={`border rounded-2xl overflow-hidden ${activeIndex === index ? 'border-cyan-400/50 shadow-xl' : 'border-gray-700/50'
+                                    }`}
+                            >
                                 <button
                                     onClick={() => toggleFAQ(index)}
-                                    className="w-full flex justify-between items-center p-3 text-left hover:bg-gray-50 transition-colors"
+                                    className="w-full flex justify-between items-center p-6 text-left hover:bg-gray-800/30 transition-colors"
                                     aria-expanded={activeIndex === index}
                                 >
-                                    <h2 className={`text-lg font-medium ${activeIndex === index ? 'text-blue-600' : 'text-gray-900'}`}>
+                                    <h2
+                                        className={`text-lg sm:text-xl font-semibold ${activeIndex === index ? 'text-cyan-400' : 'text-white'
+                                            }`}
+                                    >
                                         {faq.question}
                                     </h2>
                                     <motion.div
                                         animate={{ rotate: activeIndex === index ? 180 : 0 }}
-                                        className={`ml-4 flex-shrink-0 ${activeIndex === index ? 'text-blue-600' : 'text-gray-400'}`}
+                                        className={`ml-4 flex-shrink-0 ${activeIndex === index ? 'text-cyan-400' : 'text-gray-300'}`}
                                     >
-                                        <ChevronDown className="w-5 h-5" />
+                                        <ChevronDown className="w-6 h-6" />
                                     </motion.div>
                                 </button>
 
@@ -90,29 +119,12 @@ const FAQSection = () => {
                                             animate={{
                                                 height: 'auto',
                                                 opacity: 1,
-                                                transition: {
-                                                    height: { duration: 0.3, ease: 'easeOut' },
-                                                    opacity: { duration: 0.2, delay: 0.1 }
-                                                }
+                                                transition: { height: { duration: 0.4, ease: 'easeOut' }, opacity: { duration: 0.3 } },
                                             }}
-                                            exit={{
-                                                height: 0,
-                                                opacity: 0,
-                                                transition: {
-                                                    height: { duration: 0.2 },
-                                                    opacity: { duration: 0.1 }
-                                                }
-                                            }}
+                                            exit={{ height: 0, opacity: 0, transition: { height: { duration: 0.3 }, opacity: { duration: 0.2 } } }}
                                             className="overflow-hidden"
                                         >
-                                            <div
-                                                ref={el => {
-                                                    contentRefs.current[index] = el;
-                                                }}
-                                                className="px-6 pb-6 pt-2 text-gray-600"
-                                            >
-                                                {faq.answer}
-                                            </div>
+                                            <div className="px-6 pb-6 pt-2 text-gray-300 text-base sm:text-lg">{faq.answer}</div>
                                         </motion.div>
                                     )}
                                 </AnimatePresence>
@@ -120,34 +132,33 @@ const FAQSection = () => {
                         </motion.div>
                     ))}
                 </div>
+
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: 0.3 }}
-                    className="max-w-3xl mx-auto bg-gray-50 rounded-xl p-8 border border-gray-200 mb-9"
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                    className="max-w-3xl mx-auto bg-gray-900/50 backdrop-blur-lg rounded-2xl p-8 border border-cyan-400/30 shadow-xl"
                 >
                     <div className="flex flex-col md:flex-row items-center gap-6">
                         <div className="flex-1">
-                            <h3 className="text-xl font-bold text-gray-900 mb-2">
-                                Full Investment Details
-                            </h3>
-                            <p className="text-gray-600 mb-4">
-                                Download our comprehensive memorandum with strategy details and performance benchmarks.
+                            <h3 className="text-lg sm:text-xl font-bold text-white mb-2">Investment Blueprint</h3>
+                            <p className="text-gray-300 text-base sm:text-lg">
+                                Dive into our strategy and performance metrics with our detailed memorandum.
                             </p>
                         </div>
                         <motion.button
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            className="flex items-center px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                            whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(6, 182, 212, 0.5)' }}
+                            whileTap={{ scale: 0.95 }}
+                            className="flex items-center px-6 py-3 bg-gradient-to-r from-cyan-400 to-blue-600 text-white rounded-full font-medium text-base sm:text-lg"
                         >
-                            <Download className="w-4 h-4 mr-2" />
-                            Download Memorandum
+                            <Download className="w-5 h-5 mr-2" />
+                            Download Now
                         </motion.button>
                     </div>
                 </motion.div>
-            </div>
+            </ div>
         </section>
     )
 }
 
-export default FAQSection
+export default FAQ

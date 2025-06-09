@@ -1,96 +1,95 @@
-'use client'
-import { motion, useInView } from 'framer-motion'
-import CountUp from 'react-countup'
-import { useRef } from 'react'
+'use client';
+import { useRef } from 'react';
+import { motion, useInView, useScroll, useTransform } from 'framer-motion';
+import CountUp from 'react-countup';
+
+const stats = [
+    { value: 15.8, suffix: 'B', label: 'Assets Managed', description: 'Global real estate portfolio' },
+    { value: 98.7, suffix: '%', label: 'Client Trust', description: 'Investor satisfaction rate' },
+    { value: 283, suffix: '', label: 'Properties', description: 'Premium assets worldwide' },
+    { value: 12.4, suffix: 'K', label: 'Investors', description: 'High-net-worth clients' },
+];
 
 const Stats = () => {
-    const sectionRef = useRef(null)
-    const isInView = useInView(sectionRef, { margin: "-20%", once: true })
+    const sectionRef = useRef(null);
+    const isInView = useInView(sectionRef, { margin: '-20%' });
+    const { scrollYProgress } = useScroll({
+        target: sectionRef,
+        offset: ['start end', 'end start'],
+    });
 
-    const stats = [
-        {
-            value: 15.8,
-            suffix: "B",
-            label: "Assets Under Management",
-            description: "Across all investment vehicles and strategies"
-        },
-        {
-            value: 98.7,
-            suffix: "%",
-            label: "Client Retention",
-            description: "5-year average across all client segments"
-        },
-        {
-            value: 283,
-            suffix: "",
-            label: "Institutional Partners",
-            description: "Global network of banks and financial institutions"
-        },
-        {
-            value: 12.4,
-            suffix: "K",
-            label: "Active Investors",
-            description: "Accredited investors and family offices"
-        }
-    ]
+    const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -80]);
+    const statScale = useTransform(scrollYProgress, [0, 0.5], [0.9, 1]);
+    const statOpacity = useTransform(scrollYProgress, [0, 0.5], [0.5, 1]);
 
     return (
-        <section ref={sectionRef} className="relative py-16 bg-white overflow-hidden">
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-blue-50 filter blur-3xl opacity-30"></div>
-                <div className="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full bg-indigo-50 filter blur-3xl opacity-30"></div>
-            </div>
+        <section ref={sectionRef} className="relative py-24 sm:py-32 bg-gray-950 dark:bg-gray-950 bg-gray-100 dark:bg-gray-950 overflow-hidden">
+            {/* Background Animation Layer */}
+            <motion.div
+                className="absolute inset-0 z-0"
+                style={{ y: backgroundY }}
+            >
+                <svg className="absolute inset-0 w-full h-full opacity-10" fill="none">
+                    <motion.circle
+                        cx="50%"
+                        cy="50%"
+                        r="200"
+                        stroke="url(#grad)"
+                        strokeWidth="2"
+                        animate={{ r: [180, 220, 180] }}
+                        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+                    />
+                    <defs>
+                        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#3b82f6" />
+                            <stop offset="100%" stopColor="#a855f7" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </motion.div>
 
-            <div className="container mx-auto px-6 relative z-10">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-7xl">
                 <motion.div
-                    initial={{ opacity: 0, y: 40 }}
+                    initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.8, ease: [0.32, 0.72, 0, 1] }}
-                    className="text-center mb-20"
+                    transition={{ duration: 0.9, ease: 'easeOut' }}
+                    className="text-center mb-16"
                 >
-                    <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                        Institutional <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800">Scale</span>
+                    <h2 className="text-4xl sm:text-5xl font-extrabold text-white dark:text-white text-gray-900 dark:text-white tracking-tight">
+                        Global <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Impact</span>
                     </h2>
-                    <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                        Quantifying our global impact and client success
+                    <p className="mt-4 text-lg sm:text-xl text-gray-400 dark:text-gray-400 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                        Setting new standards in luxury real estate investment.
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {stats.map((stat, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 50 }}
+                            initial={{ opacity: 0, y: 40 }}
                             animate={isInView ? { opacity: 1, y: 0 } : {}}
-                            transition={{
-                                duration: 0.6,
-                                delay: index * 0.1,
-                                ease: [0.32, 0.72, 0, 1]
-                            }}
-                            className="bg-gradient-to-b from-white to-gray-50 rounded-xl p-8 border border-gray-100 hover:border-blue-200 transition-colors"
-                            whileHover={{ y: -5 }}
+                            transition={{ duration: 0.8, delay: index * 0.2, ease: 'easeOut' }}
+                            style={{ scale: statScale, opacity: statOpacity }}
+                            whileHover={{ scale: 1.05 }}
+                            className="bg-gradient-to-b from-gray-900/60 to-gray-800/60 dark:from-gray-900/60 dark:to-gray-800/60 bg-gradient-to-b from-white/60 to-gray-200/60 border border-blue-500/10 dark:border-blue-500/10 backdrop-blur-md rounded-xl p-6 sm:p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300"
                         >
-                            <div className="text-5xl font-bold text-gray-900 mb-2">
+                            <div className="text-3xl sm:text-4xl font-bold text-blue-400 dark:text-blue-400 text-blue-600 dark:text-blue-400 mb-2">
                                 <CountUp
-                                    end={stat.value}
-                                    duration={3}
+                                    end={isInView ? stat.value : 0}
+                                    duration={2}
                                     decimals={stat.value % 1 !== 0 ? 1 : 0}
                                     suffix={stat.suffix}
-                                    className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600"
                                 />
                             </div>
-                            <h3 className="text-xl font-medium text-gray-900 mb-2">
-                                {stat.label}
-                            </h3>
-                            <p className="text-gray-500 text-sm">
-                                {stat.description}
-                            </p>
+                            <h3 className="text-lg font-semibold text-white dark:text-white text-gray-900 dark:text-white mb-1">{stat.label}</h3>
+                            <p className="text-sm text-gray-400 dark:text-gray-400 text-gray-600 dark:text-gray-400">{stat.description}</p>
                         </motion.div>
                     ))}
                 </div>
             </div>
         </section>
-    )
-}
+    );
+};
 
-export default Stats
+export default Stats;
