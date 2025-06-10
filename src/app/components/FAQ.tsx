@@ -4,7 +4,7 @@ import { motion, AnimatePresence, useInView, useScroll, useTransform } from 'fra
 import { ChevronDown, Download } from 'lucide-react'
 
 const FAQ = () => {
-    const [activeIndex, setActiveIndex] = useState(null)
+    const [activeIndex, setActiveIndex] = useState<number | null>(null)
     const sectionRef = useRef(null)
     const isInView = useInView(sectionRef, { margin: '-20%', once: true })
     const { scrollYProgress } = useScroll({
@@ -38,7 +38,7 @@ const FAQ = () => {
     const faqOpacity = useTransform(scrollYProgress, [0, 0.5], [0.5, 1])
     const faqY = useTransform(scrollYProgress, [0, 0.5], [50, 0])
 
-    const toggleFAQ = (index) => {
+    const toggleFAQ = (index: number) => {
         setActiveIndex(activeIndex === index ? null : index)
     }
 
