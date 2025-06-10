@@ -11,7 +11,11 @@ const Navbar = () => {
 
     return (
         <motion.header
-            className="fixed w-full z-50 bg-white dark:bg-gray-900 backdrop-blur-lg shadow-lg transition-colors duration-300"
+            className="fixed w-full z-50 bg-white/80 dark:bg-gray-900/80 text-gray-900 dark:text-white backdrop-blur-lg shadow-lg transition-colors duration-300"
+            style={{
+                backgroundColor: 'var(--background)',
+                // color: 'var(--foreground)'
+            }}
             initial={{ y: -100 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
@@ -28,7 +32,7 @@ const Navbar = () => {
                             className="w-full h-full object-cover"
                         />
                     </motion.div>
-                    <span className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Rising Capital</span>
+                    <span className="text-xl sm:text-2xl font-bold text-[color:var(--foreground)]">Rising Capital</span>
                 </Link>
 
                 <nav className="hidden lg:flex items-center space-x-6">
@@ -36,7 +40,7 @@ const Navbar = () => {
                         <Link
                             key={item}
                             href={`#${item.toLowerCase()}`}
-                            className="relative text-gray-700 dark:text-gray-200 hover:text-cyan-400 dark:hover:text-cyan-400 font-medium text-base"
+                            className="relative text-[color:var(--foreground)] hover:text-cyan-400 dark:hover:text-cyan-400 font-medium text-base"
                         >
                             {item}
                             <motion.span
@@ -50,7 +54,7 @@ const Navbar = () => {
                 </nav>
 
                 <div className="hidden lg:flex items-center space-x-4">
-                    <Link href="/login" className="text-gray-700 dark:text-gray-200 hover:text-cyan-400 dark:hover:text-cyan-400 font-medium text-base">
+                    <Link href="/login" className="text-[color:var(--foreground)] hover:text-cyan-400 dark:hover:text-cyan-400 font-medium text-base">
                         Investor Portal
                     </Link>
                     <motion.button
@@ -79,14 +83,14 @@ const Navbar = () => {
                         <Link
                             key={item}
                             href={`#${item.toLowerCase()}`}
-                            className="block text-gray-700 dark:text-gray-200 hover:text-cyan-400 dark:hover:text-cyan-400 text-base font-medium py-2"
+                            className="block text-[color:var(--foreground)] hover:text-cyan-400 dark:hover:text-cyan-400 text-base font-medium py-2"
                             onClick={() => setIsOpen(false)}
                         >
                             {item}
                         </Link>
                     ))}
                     <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
-                        <Link href="/login" className="block text-gray-700 dark:text-gray-200 hover:text-cyan-400 dark:hover:text-cyan-400 text-base font-medium py-2">
+                        <Link href="/login" className="block text-[color:var(--foreground)] hover:text-cyan-400 dark:hover:text-cyan-400 text-base font-medium py-2">
                             Investor Portal
                         </Link>
                         <motion.button

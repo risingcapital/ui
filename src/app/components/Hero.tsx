@@ -35,8 +35,11 @@ const Hero = () => {
             </motion.video>
             {/* Overlay for contrast */}
             <motion.div
-                className="absolute inset-0 bg-gradient-to-b from-black/50 via-blue-900/20 to-black/50 z-10"
-                style={{ opacity: videoOpacity }}
+                className="absolute inset-0 z-10"
+                style={{
+                    opacity: videoOpacity,
+                    background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(59, 130, 246, 0.2) 50%, rgba(0, 0, 0, 0.5) 100%)'
+                }}
             />
 
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20 max-w-7xl">

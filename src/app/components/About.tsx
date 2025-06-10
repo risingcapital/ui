@@ -15,7 +15,9 @@ const About = () => {
     const imageRotate = useTransform(scrollYProgress, [0, 0.5], [10, 0])
 
     return (
-        <section id="about" ref={ref} className="relative py-20 bg-gray-900 overflow-hidden">
+        <section id="about" ref={ref} className="relative py-20 overflow-hidden" style={{
+            backgroundColor: 'var(--background)'
+        }}>
             <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-blue-900/20 to-cyan-900/20 z-0"
                 style={{ opacity: useTransform(scrollYProgress, [0, 1], [0.5, 0.2]) }}
@@ -40,13 +42,13 @@ const About = () => {
                         className="lg:w-1/2 space-y-4"
                         style={{ y: textY, opacity: textOpacity }}
                     >
-                        <h2 className="text-3xl sm:text-4xl font-bold text-white">
+                        <h2 className="text-3xl sm:text-4xl font-bold" style={{ color: 'var(--foreground)' }}>
                             Pioneering <span className="text-cyan-400">Real Estate</span> Innovation
                         </h2>
-                        <p className="text-base sm:text-lg text-gray-300">
+                        <p className="text-base sm:text-lg" style={{ color: 'var(--foreground)' }}>
                             Since 2010, Rising Capital has redefined wealth creation with AI-driven real estate strategies.
                         </p>
-                        <p className="text-base sm:text-lg text-gray-300">
+                        <p className="text-base sm:text-lg" style={{ color: 'var(--foreground)' }}>
                             Our global team delivers unparalleled returns through cutting-edge technology and market expertise.
                         </p>
                     </motion.div>

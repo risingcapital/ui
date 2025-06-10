@@ -74,7 +74,9 @@ const Testimonials = () => {
     }
 
     return (
-        <section id="testimonials" className="py-20 bg-gray-900 overflow-hidden">
+        <section id="testimonials" className="py-20 overflow-hidden" style={{
+            backgroundColor: 'var(--background)'
+        }}>
             <div className="container mx-auto px-6 sm:px-6 lg:px-8 max-w-7xl">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
@@ -82,13 +84,12 @@ const Testimonials = () => {
                     transition={{ duration: 0.8 }}
                     className="text-center mb-12"
                 >
-                    <h2 className="text-3xl sm:text-4xl font-bold text-white">
+                    <h2 className="text-3xl sm:text-4xl font-bold" style={{ color: 'var(--foreground)' }}>
                         Trusted by <span className="text-blue-400">Investors</span>
                     </h2>
                 </motion.div>
 
                 <div className="relative">
-                    {/* Scrollable testimonials row */}
                     <div
                         ref={containerRef}
                         className="flex overflow-x-scroll no-scrollbar space-x-6 scroll-smooth snap-x snap-mandatory px-6"
@@ -96,7 +97,7 @@ const Testimonials = () => {
                         {extendedTestimonials.map((testimonial, index) => (
                             <motion.div
                                 key={index}
-                                className="w-1/3 flex-shrink-0 snap-start bg-white/5 border border-white/10 rounded-xl p-6 shadow-md backdrop-blur-md transition hover:scale-105"
+                                className="w-1/3 flex-shrink-0 snap-start bg-card-bg rounded-xl p-6 shadow-md backdrop-blur-md transition hover:scale-105"
                             >
 
                                 <div className="flex items-center mb-4">
@@ -106,11 +107,12 @@ const Testimonials = () => {
                                         className="w-12 h-12 rounded-full object-cover"
                                     />
                                     <div className="ml-4">
-                                        <h4 className="text-base font-semibold text-white">{testimonial.name}</h4>
-                                        <p className="text-sm text-gray-400">{testimonial.role}</p>
+                                        <h4 className="text-base font-semibold" style={{ color: 'var(--foreground)' }}>{testimonial.name}</h4>
+                                        <p className="text-sm" style={{ color: 'var(--foreground)' }}>{testimonial.role}</p>
                                     </div>
                                 </div>
-                                <p className="text-sm sm:text-base text-gray-300">{testimonial.content}</p>
+                                <p className="text-sm sm:text-base" style={{ color: 'var(--foreground)' }}>
+                                    {testimonial.content}</p>
                             </motion.div>
                         ))}
                     </div>

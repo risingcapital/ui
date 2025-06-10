@@ -32,11 +32,9 @@ const Features = () => {
     const cardOpacity = useTransform(scrollYProgress, [0, 0.5], [0.5, 1])
 
     return (
-        <section id="investments" ref={ref} className="relative py-20 bg-gray-800 overflow-hidden">
-            <motion.div
-                className="absolute inset-0 bg-gradient-to-t from-blue-900/30 to-gray-900 z-0"
-                style={{ opacity: useTransform(scrollYProgress, [0, 1], [0.5, 0.2]) }}
-            />
+        <section id="investments" ref={ref} className="relative py-20 overflow-hidden" style={{
+            backgroundColor: 'var(--background)'
+        }}>
 
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-7xl">
                 <motion.div
@@ -45,10 +43,10 @@ const Features = () => {
                     transition={{ duration: 0.8 }}
                     className="text-center mb-12"
                 >
-                    <h2 className="text-3xl sm:text-4xl font-bold text-white">
+                    <h2 className="text-3xl sm:text-4xl font-bold" style={{ color: 'var(--foreground)' }}>
                         Why <span className="text-blue-400">Rising Capital</span>
                     </h2>
-                    <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto">
+                    <p className="text-base sm:text-lg" style={{ color: 'var(--foreground)' }}>
                         Unmatched expertise and technology for wealth creation
                     </p>
                 </motion.div>
@@ -59,15 +57,17 @@ const Features = () => {
                             key={index}
                             style={{ rotateY: cardRotate, opacity: cardOpacity }}
                             whileHover={{ scale: 1.05, boxShadow: '0 0 15px rgba(59, 130, 246, 0.3)' }}
-                            className="bg-gray-900/80 rounded-lg p-6 shadow-md backdrop-blur-sm"
+                            className="bg-card-bg rounded-lg p-6 shadow-md backdrop-blur-sm"
                         >
                             <img
                                 src={feature.icon}
                                 alt={feature.title}
                                 className="w-12 h-12 rounded-full mb-4 object-cover"
                             />
-                            <h3 className="text-lg sm:text-xl font-semibold text-white mb-2">{feature.title}</h3>
-                            <p className="text-sm sm:text-base text-gray-400">{feature.description}</p>
+                            <h3 className="text-lg sm:text-xl font-semibold" style={{ color: 'var(--foreground)' }}>
+                                {feature.title}</h3>
+                            <p className="text-sm sm:text-base" style={{ color: 'var(--foreground)' }}>
+                                {feature.description}</p>
                             <a
                                 href="#learn-more"
                                 className="mt-4 inline-flex items-center text-blue-400 hover:text-blue-300"

@@ -66,7 +66,10 @@ const Footer = () => {
     ]
 
     return (
-        <footer className="bg-gray-900 text-gray-300 pt-20 pb-12 border-t border-gray-800">
+        <footer className="pt-20 pb-12 border-t" style={{
+            backgroundColor: 'var(--background)',
+            borderColor: 'var(--border)'
+        }}>
             <div className="container mx-auto px-6">
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
                     <div className="lg:col-span-2">
@@ -78,9 +81,9 @@ const Footer = () => {
                                     className="w-full h-full object-cover rounded"
                                 />
                             </div>
-                            <span className="text-white font-bold text-xl">RISING CAPITAL</span>
+                            <span className="font-bold text-xl" style={{ color: 'var(--foreground)' }}>RISING CAPITAL</span>
                         </div>
-                        <p className="text-gray-400 mb-6 max-w-md">
+                        <p className="mb-6 max-w-md" style={{ color: 'var(--foreground)' }}>
                             A premier investment firm providing institutional-quality strategies
                             to sophisticated investors and family offices worldwide.
                         </p>
@@ -96,8 +99,8 @@ const Footer = () => {
                                         href={social.href}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors flex items-center justify-center text-gray-300 hover:text-white"
-                                        aria-label={social.name}
+                                        className="w-10 h-10 rounded-full hover:bg-accent/10 transition-colors flex items-center justify-center"
+                                        style={{ color: 'var(--foreground)', backgroundColor: 'var(--card-bg)' }} aria-label={social.name}
                                     >
                                         {social.icon}
                                     </a>
@@ -106,16 +109,16 @@ const Footer = () => {
                         </div>
 
                         <div>
-                            <h4 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4">
+                            <h4 className="text-sm font-medium text-gray-400 uppercase tracking-wider mb-4" style={{ color: 'var(--foreground)' }}>
                                 Contact
                             </h4>
-                            <address className="not-italic space-y-2">
-                                <p className="text-gray-300">1007 Mountain Drive</p>
-                                <p className="text-gray-300">Bristol Township, Gotham City</p>
-                                <p className="text-gray-300">+91 9876543210</p>
+                            <address className="not-italic space-y-2" style={{ color: 'var(--foreground)' }}>
+                                <p className="text-gray-300" style={{ color: 'var(--foreground)' }}>1007 Mountain Drive</p>
+                                <p className="text-gray-300" style={{ color: 'var(--foreground)' }}>Bristol Township, Gotham City</p>
+                                <p className="text-gray-300" style={{ color: 'var(--foreground)' }}>+91 9876543210</p>
                                 <a
                                     href="mailto:investorrelations@risingcapital.com"
-                                    className="text-blue-400 hover:text-blue-300 transition-colors block"
+                                    className="hover:text-accent transition-colors" style={{ color: 'var(--foreground)' }}
                                 >
                                     rcinvestors@risingcapital.com
                                 </a>
@@ -126,7 +129,7 @@ const Footer = () => {
                     <div className="lg:col-span-3 grid grid-cols-2 md:grid-cols-4 gap-8">
                         {links.map((section) => (
                             <div key={section.title}>
-                                <h3 className="text-sm font-medium text-white uppercase tracking-wider mb-4">
+                                <h3 className="text-sm font-medium text-white uppercase tracking-wider mb-4" style={{ color: 'var(--foreground)' }}>
                                     {section.title}
                                 </h3>
                                 <ul className="space-y-3">
@@ -134,7 +137,7 @@ const Footer = () => {
                                         <li key={item.name}>
                                             <Link
                                                 href={item.href}
-                                                className="text-gray-400 hover:text-white transition-colors"
+                                                className="text-gray-400 hover:text-white transition-colors" style={{ color: 'var(--foreground)' }}
                                             >
                                                 {item.name}
                                             </Link>
