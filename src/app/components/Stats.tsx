@@ -23,7 +23,9 @@ const Stats = () => {
     const statOpacity = useTransform(scrollYProgress, [0, 0.5], [0.5, 1]);
 
     return (
-        <section ref={sectionRef} className="relative py-24 sm:py-32 bg-gray-950 dark:bg-gray-950 bg-gray-100 dark:bg-gray-950 overflow-hidden">
+        <section ref={sectionRef} className="relative py-24 sm:py-32 overflow-hidden" style={{
+            backgroundColor: 'var(--background)'
+        }}>
             {/* Background Animation Layer */}
             <motion.div
                 className="absolute inset-0 z-0"
@@ -55,10 +57,10 @@ const Stats = () => {
                     transition={{ duration: 0.9, ease: 'easeOut' }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-4xl sm:text-5xl font-extrabold text-white dark:text-white text-gray-900 dark:text-white tracking-tight">
+                    <h2 className="text-4xl sm:text-5xl font-extrabold" style={{ color: 'var(--foreground)' }}>
                         Global <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Impact</span>
                     </h2>
-                    <p className="mt-4 text-lg sm:text-xl text-gray-400 dark:text-gray-400 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                    <p className="mt-4 text-lg sm:text-xl" style={{ color: 'var(--foreground)' }}>
                         Setting new standards in luxury real estate investment.
                     </p>
                 </motion.div>
@@ -72,18 +74,19 @@ const Stats = () => {
                             transition={{ duration: 0.8, delay: index * 0.2, ease: 'easeOut' }}
                             style={{ scale: statScale, opacity: statOpacity }}
                             whileHover={{ scale: 1.05 }}
-                            className="bg-gradient-to-b from-gray-900/60 to-gray-800/60 dark:from-gray-900/60 dark:to-gray-800/60 bg-gradient-to-b from-white/60 to-gray-200/60 border border-blue-500/10 dark:border-blue-500/10 backdrop-blur-md rounded-xl p-6 sm:p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300"
+                            className="bg-gradient-to-b from-gray-900/60 to-gray-800/60 border-border/50 backdrop-blur-md rounded-xl p-6 sm:p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300"
                         >
-                            <div className="text-3xl sm:text-4xl font-bold text-blue-400 dark:text-blue-400 text-blue-600 dark:text-blue-400 mb-2">
+                            <div className="text-3xl sm:text-4xl font-bold text-accent mb-2">
                                 <CountUp
                                     end={isInView ? stat.value : 0}
                                     duration={2}
                                     decimals={stat.value % 1 !== 0 ? 1 : 0}
                                     suffix={stat.suffix}
+                                    style={{ color: 'var(--foreground)' }}
                                 />
                             </div>
-                            <h3 className="text-lg font-semibold text-white dark:text-white text-gray-900 dark:text-white mb-1">{stat.label}</h3>
-                            <p className="text-sm text-gray-400 dark:text-gray-400 text-gray-600 dark:text-gray-400">{stat.description}</p>
+                            <h3 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>{stat.label}</h3>
+                            <p className="text-sm" style={{ color: 'var(--foreground)' }}>{stat.description}</p>
                         </motion.div>
                     ))}
                 </div>

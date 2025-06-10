@@ -9,28 +9,41 @@
   }
 
   body {
-    @apply bg-gray-950 text-gray-50 antialiased dark:bg-gray-950 dark:text-gray-50 bg-white text-gray-900 transition-colors duration-300;
+    @apply antialiased transition-colors duration-300;
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
   }
 
   /* Custom scrollbar */
   ::-webkit-scrollbar {
     @apply w-2;
-    display: none;
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-gray-900 dark:bg-gray-900 bg-gray-200;
+    background-color: var(--background);
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-gray-100 dark:bg-gray-100 rounded bg-gray-400;
+    @apply rounded;
+    background-color: var(--accent);
   }
 }
 
 /* Custom components */
 @layer components {
   .gradient-text {
-    @apply text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 dark:from-blue-400 dark:to-purple-500;
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500;
   }
 }
 

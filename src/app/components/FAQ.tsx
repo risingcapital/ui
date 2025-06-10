@@ -43,7 +43,9 @@ const FAQ = () => {
     }
 
     return (
-        <section ref={sectionRef} className="relative py-20 bg-gray-900 overflow-hidden">
+        <section ref={sectionRef} className="relative py-20 overflow-hidden" style={{
+            backgroundColor: 'var(--background)'
+        }}>
             <motion.div
                 className="absolute inset-0 bg-gradient-to-b from-blue-900/20 to-gray-900 z-0"
                 style={{ opacity: useTransform(scrollYProgress, [0, 1], [0.5, 0.2]) }}
@@ -74,10 +76,10 @@ const FAQ = () => {
                     transition={{ duration: 0.8 }}
                     className="text-center mb-12"
                 >
-                    <h2 className="text-3xl sm:text-4xl font-bold text-white">
+                    <h2 className="text-3xl sm:text-4xl font-bold" style={{ color: 'var(--foreground)' }}>
                         Clarity for <span className="text-cyan-400">Investors</span>
                     </h2>
-                    <p className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto">
+                    <p className="text-base sm:text-lg" style={{ color: 'var(--foreground)' }}>
                         Answers to empower your investment journey
                     </p>
                 </motion.div>
@@ -90,18 +92,14 @@ const FAQ = () => {
                             className="overflow-hidden"
                         >
                             <div
-                                className={`border rounded-2xl overflow-hidden ${activeIndex === index ? 'border-cyan-400/50 shadow-xl' : 'border-gray-700/50'
-                                    }`}
+                                className={`border rounded-2xl overflow-hidden ${activeIndex === index ? 'border-cyan-400/50 shadow-xl' : 'border-gray-700/50'}`}
                             >
                                 <button
                                     onClick={() => toggleFAQ(index)}
                                     className="w-full flex justify-between items-center p-6 text-left hover:bg-gray-800/30 transition-colors"
                                     aria-expanded={activeIndex === index}
                                 >
-                                    <h2
-                                        className={`text-lg sm:text-xl font-semibold ${activeIndex === index ? 'text-cyan-400' : 'text-white'
-                                            }`}
-                                    >
+                                    <h2 className={`text-lg sm:text-xl font-semibold ${activeIndex === index ? 'text-accent' : ''}`} style={{ color: 'var(--foreground)' }}>
                                         {faq.question}
                                     </h2>
                                     <motion.div
@@ -137,12 +135,12 @@ const FAQ = () => {
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.8, delay: 0.4 }}
-                    className="max-w-3xl mx-auto bg-gray-900/50 backdrop-blur-lg rounded-2xl p-8 border border-cyan-400/30 shadow-xl"
+                    className="max-w-3xl mx-auto bg-card-bg backdrop-blur-lg rounded-2xl p-8 border border-cyan-400/30 shadow-xl"
                 >
                     <div className="flex flex-col md:flex-row items-center gap-6">
                         <div className="flex-1">
-                            <h3 className="text-lg sm:text-xl font-bold text-white mb-2">Investment Blueprint</h3>
-                            <p className="text-gray-300 text-base sm:text-lg">
+                            <h3 className="text-lg sm:text-xl font-bold text-white mb-2" style={{ color: 'var(--foreground)' }}>Investment Blueprint</h3>
+                            <p className="text-gray-300 text-base sm:text-lg" style={{ color: 'var(--foreground)' }}>
                                 Dive into our strategy and performance metrics with our detailed memorandum.
                             </p>
                         </div>

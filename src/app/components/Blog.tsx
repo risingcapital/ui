@@ -35,7 +35,9 @@ const Blog = () => {
     const cardOpacity = useTransform(scrollYProgress, [0, 0.5], [0.5, 1])
 
     return (
-        <section id="insights" ref={ref} className="relative py-20 bg-gray-800 overflow-hidden">
+        <section id="insights" ref={ref} className="relative py-20 overflow-hidden" style={{
+            backgroundColor: 'var(--background)'
+        }}>
             <motion.div
                 className="absolute inset-0 bg-gradient-to-t from-blue-900/30 to-gray-900 z-0"
                 style={{ opacity: useTransform(scrollYProgress, [0, 1], [0.5, 0.2]) }}
@@ -48,7 +50,7 @@ const Blog = () => {
                     transition={{ duration: 0.8 }}
                     className="text-center mb-12"
                 >
-                    <h2 className="text-3xl sm:text-4xl font-bold text-white">
+                    <h2 className="text-3xl sm:text-4xl font-bold" style={{ color: 'var(--foreground)' }}>
                         Latest <span className="text-blue-400">Insights</span>
                     </h2>
                 </motion.div>
@@ -59,7 +61,7 @@ const Blog = () => {
                             key={article.slug}
                             style={{ rotateY: cardRotate, opacity: cardOpacity }}
                             whileHover={{ scale: 1.05, boxShadow: '0 0 15px rgba(59, 130, 246, 0.3)' }}
-                            className="bg-gray-900/80 rounded-lg overflow-hidden shadow-md backdrop-blur-sm"
+                            className="bg-card-bg rounded-lg overflow-hidden shadow-md backdrop-blur-sm"
                         >
                             <img
                                 src={article.image}
@@ -67,8 +69,8 @@ const Blog = () => {
                                 className="w-full h-48 object-cover"
                             />
                             <div className="p-6">
-                                <h3 className="text-lg sm:text-xl font-semibold text-white mb-2">{article.title}</h3>
-                                <p className="text-sm sm:text-base text-gray-400 mb-4">{article.excerpt}</p>
+                                <h3 className="text-lg sm:text-xl font-semibold" style={{ color: 'var(--foreground)' }}>{article.title}</h3>
+                                <p className="text-sm sm:text-base" style={{ color: 'var(--foreground)' }}>{article.excerpt}</p>
                                 <a
                                     href={`/insights/${article.slug}`}
                                     className="text-blue-400 hover:text-blue-300 flex items-center"
