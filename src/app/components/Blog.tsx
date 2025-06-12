@@ -39,8 +39,8 @@ const Blog = () => {
             backgroundColor: 'var(--background)'
         }}>
             <motion.div
-                className="absolute inset-0 bg-gradient-to-t from-blue-900/30 to-gray-900 z-0"
-                style={{ opacity: useTransform(scrollYProgress, [0, 1], [0.5, 0.2]) }}
+                className="absolute inset-0 z-0"
+                style={{ backgroundColor: 'var(--background)' }}
             />
 
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-7xl">

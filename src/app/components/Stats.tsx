@@ -74,15 +74,15 @@ const Stats = () => {
                             transition={{ duration: 0.8, delay: index * 0.2, ease: 'easeOut' }}
                             style={{ scale: statScale, opacity: statOpacity }}
                             whileHover={{ scale: 1.05 }}
-                            className="bg-gradient-to-b from-gray-900/60 to-gray-800/60 border-border/50 backdrop-blur-md rounded-xl p-6 sm:p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300"
+                            className="backdrop-blur-lg bg-white/10 dark:bg-gray-900/10 border border-white/20 dark:border-gray-700/20 rounded-xl p-6 sm:p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300"
                         >
-                            <div className="text-3xl sm:text-4xl font-bold text-accent mb-2">
+                            <div className="text-3xl sm:text-4xl font-bold mb-2">
                                 <CountUp
                                     end={isInView ? stat.value : 0}
                                     duration={2}
                                     decimals={stat.value % 1 !== 0 ? 1 : 0}
                                     suffix={stat.suffix}
-                                    style={{ color: 'var(--foreground)' }}
+                                    className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500"
                                 />
                             </div>
                             <h3 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>{stat.label}</h3>
