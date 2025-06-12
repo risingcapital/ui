@@ -1,6 +1,6 @@
 'use client'
 import { useRef } from 'react'
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, BarChart2, Globe, Users, ShieldCheck, TrendingUp, Database } from 'lucide-react'
 
 const Features = () => {
